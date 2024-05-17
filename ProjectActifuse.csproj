@@ -16,4 +16,9 @@
     <Folder Include="MVVM\View\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="MySqlConnector" Version="2.3.7" />
+  </ItemGroup>
+
 </Project>
