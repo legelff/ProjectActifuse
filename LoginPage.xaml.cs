@@ -44,7 +44,7 @@ namespace ProjectActifuse
                 {
                     connection.Open();
 
-                    string query = "SELECT COUNT(*) FROM User WHERE Username=@Username AND Password=@Password";
+                    string query = "SELECT COUNT(*) FROM Users WHERE Username=@Username AND Password=@Password";
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Password", password);
@@ -83,7 +83,7 @@ namespace ProjectActifuse
             // Implement encryption logic here
             using (SHA256 sha256 = SHA256.Create())
             {
-                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(saltedPassword));
                 StringBuilder stringBuilder = new StringBuilder();
                 foreach (byte b in hashBytes)
                 {
@@ -92,5 +92,23 @@ namespace ProjectActifuse
                 return stringBuilder.ToString();
             }
         }
+
+        //private string originalPassword; // Variable to store original password
+
+        //private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    // Show the password and change icon to EyeSlash
+        //    originalPassword = PasswordTextBox.Password; // Store original password
+        //    PasswordTextBox.PasswordChar = '\0'; // Set PasswordChar to null to make password visible
+        //    EyeIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.EyeSlash;
+        //}
+
+        //private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    // Hide the password and change icon to Eye
+        //    PasswordTextBox.Password = originalPassword; // Restore original password
+        //    PasswordTextBox.PasswordChar = '•'; // Set PasswordChar back to default
+        //    EyeIcon.Icon = FontAwesome.WPF.FontAwesomeIcon.Eye;
+        //}
     }
 }

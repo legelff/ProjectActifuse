@@ -9,16 +9,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\logoActifuse.png" />
+    <None Remove="Images\logoActifuseWithBG.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Fonts\" />
-    <Folder Include="Images\" />
     <Folder Include="MVVM\Model\" />
     <Folder Include="MVVM\ViewModel\" />
     <Folder Include="MVVM\View\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="MySqlConnector" Version="2.3.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\logoActifuse.png" />
+    <Resource Include="Images\logoActifuseWithBG.jpg" />
   </ItemGroup>
 
 </Project>

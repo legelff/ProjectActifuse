@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectActifuse"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Project Actifuse" 
         Height="600" Width="920"
@@ -14,7 +15,9 @@
         WindowStartupLocation="CenterScreen">
 
     <Border Background="#393646"
-            CornerRadius="20">
+            BorderBrush="{x:Static SystemColors.ControlDarkBrush}"
+            BorderThickness="1"
+            CornerRadius="10">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -22,48 +25,171 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Actifuse"
+            <Rectangle Fill="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" Grid.ColumnSpan="2"></Rectangle>
+            
+            <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="Auto" Grid.ColumnSpan="2">
+                <Button Width="40" 
+                        Height="30" 
+                        Margin="0" 
+                        Click="TitleBarMinimize" 
+                        BorderThickness="0" Background="#4F4557" 
+                        Foreground="#F4EEE0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#4F4557"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                x:Name="border">
+                                            <ContentPresenter HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="#6D5D6E"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                    _
+                </Button>
+                
+                <Button Width="40" 
+                        Height="30" 
+                        Margin="0" 
+                        Click="TitleBarMaximize" 
+                        BorderThickness="0" 
+                        Background="#4F4557" 
+                        Foreground="#F4EEE0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#4F4557"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            x:Name="border">
+                                            <ContentPresenter HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="#6D5D6E"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                    ❐
+                </Button>
+                <Button Width="40" 
+                        Height="30" 
+                        Margin="0" 
+                        Click="TitleBarClose" 
+                        BorderThickness="0" 
+                        Background="#4F4557" 
+                        Foreground="#F4EEE0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#4F4557"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="0,10,0,0"
+                                                x:Name="border">
+                                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="Red"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                    ✕
+                </Button>
+            </WrapPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Image Source= "/Images/logoActifuse.png"
+                   HorizontalAlignment="Left" Margin="0,4,0,4" Width="31"/>
+
+                <TextBlock Text="Actifuse"
+                           Foreground="#F4EEE0"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <!--<Rectangle Stroke="#4F4557" VerticalAlignment="Bottom" Height="1" Grid.ColumnSpan="2"/>-->
+
+            <TextBlock Text="Name"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Foreground="#F4EEE0"
                        FontSize="22"
-                       Margin="20,0,0,0"/>
-
-            <TextBlock Text="Name"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Right"
-                       Foreground="#F4EEE0"
-                       FontSize="22"
-                       Margin="0,0,20,0"/>
+                       Margin="20,0,0,0"
+                       Grid.Row="1"/>
 
             <TextBlock Grid.Column="1"
                        Text="History"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Foreground="#F4EEE0"
-                       FontSize="22"/>
+                       FontSize="22"
+                       Grid.Row="1"/>
 
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="2">
                 <Button Width="150"
                         Height="40"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
-                        Margin="0,20,0,0"
+                        Margin="0,0,0,0"
                         Content="Random"
-                        Foreground="#F4EEE0">
+                        Foreground="#F4EEE0"
+                        FontSize="15">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="#4F4557"
-                                    BorderBrush="#6D5D6E"
+                            <Border Background="#6D5D6E"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="5">
+                                    CornerRadius="5"
+                                    x:Name="border">
+
+                                <Border.Effect>
+                                    <DropShadowEffect Color="Black"
+                                                      BlurRadius="5"
+                                                      ShadowDepth="0"
+                                                      Opacity="0.3"/>
+                                </Border.Effect>
+
                                 <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"/>
+                                                     VerticalAlignment="Center"/>
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="#F4EEE0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
@@ -81,87 +207,326 @@
                         Background="#4F4557"
                         Width="500"
                         Padding="0">
+
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black"
+                      BlurRadius="5"
+                      ShadowDepth="0"
+                      Opacity="0.3"/>
+                    </Border.Effect>
                     <StackPanel Width="500" 
                                 Height="380"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
-                        <Border CornerRadius="5"
-                                Background="#6D5D6E"
+                        <Border Height="40"
                                 Width="400"
-                                Margin="0,20,0,30">
-                            <StackPanel HorizontalAlignment="Center"
-                                        Width="400"
-                                        Height="40">
+                                Background="#6D5D6E"
+                                CornerRadius="5"
+                                Margin="0,30,0,20"
+                                Padding="2">
 
-                            </StackPanel>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black"
+                                                  BlurRadius="5"
+                                                  ShadowDepth="0"
+                                                  Opacity="0.3"/>
+                            </Border.Effect>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Type:"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Foreground="#F4EEE0"
+                                           FontSize="13"
+                                           TextAlignment="Center"/>
+
+                                <Border Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Width="345"
+                                        Height="25"
+                                        Background="#F4EEE0"
+                                        CornerRadius="5">
+                                    <ComboBox x:Name="TypeDropdownBox"
+                                              HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Center" 
+                                              Padding="0"
+                                              BorderThickness="0"
+                                              Background="Transparent"
+                                              FontSize="13"
+                                              Margin="5,0,5,0">
+                                        <ComboBoxItem>Education</ComboBoxItem>
+                                        <ComboBoxItem>Recreational</ComboBoxItem>
+                                        <ComboBoxItem>Social</ComboBoxItem>
+                                        <ComboBoxItem>DIY</ComboBoxItem>
+                                        <ComboBoxItem>Charity</ComboBoxItem>
+                                        <ComboBoxItem>Cooking</ComboBoxItem>
+                                        <ComboBoxItem>Relaxation</ComboBoxItem>
+                                        <ComboBoxItem>Music</ComboBoxItem>
+                                        <ComboBoxItem>Busywork</ComboBoxItem>
+                                    </ComboBox>
+                                </Border>
+                            </Grid>
                         </Border>
 
-                        <Border CornerRadius="5"
+                        <Border Height="40"
+                                Width="150"
                                 Background="#6D5D6E"
-                                Width="400"
-                                Margin="0,0,0,30">
-                            <StackPanel HorizontalAlignment="Center"
-                                        Width="400"
-                                        Height="40">
+                                CornerRadius="5"
+                                Margin="50,0,0,20"
+                                Padding="2"
+                                HorizontalAlignment="Left">
 
-                            </StackPanel>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black"
+                                                  BlurRadius="5"
+                                                  ShadowDepth="0"
+                                                  Opacity="0.3"/>
+                            </Border.Effect>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="85"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Participants:"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Foreground="#F4EEE0"
+                                           FontSize="13"
+                                           TextAlignment="Center"/>
+
+                                <Border Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Width="55"
+                                        Height="25"
+                                        Background="#F4EEE0"
+                                        CornerRadius="5">
+                                    <xctk:IntegerUpDown x:Name="NumberSelector"
+                                                        Width="55"
+                                                        Height="25"
+                                                        VerticalAlignment="Center"
+                                                        Padding="0"
+                                                        BorderThickness="0"
+                                                        Background="Transparent"
+                                                        FontSize="13"
+                                                        Minimum="1"
+                                                        Maximum="8"
+                                                        TextAlignment="Center"/>
+                                </Border>
+                            </Grid>
                         </Border>
 
-                        <Border CornerRadius="5"
-                                Background="#6D5D6E"
+                        <Border Height="40"
                                 Width="400"
-                                Margin="0,0,0,30">
-                            <StackPanel HorizontalAlignment="Center"
-                                        Width="400"
-                                        Height="40">
+                                Background="#6D5D6E"
+                                CornerRadius="5"
+                                Margin="50,0,0,20"
+                                Padding="2"
+                                HorizontalAlignment="Left">
 
-                            </StackPanel>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black"
+                                                  BlurRadius="5"
+                                                  ShadowDepth="0"
+                                                  Opacity="0.3"/>
+                            </Border.Effect>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Max Price:"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Foreground="#F4EEE0"
+                                           FontSize="13"
+                                           TextAlignment="Center"/>
+
+                                <Border Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Width="315"
+                                        Height="25"
+                                        Background="#F4EEE0"
+                                        CornerRadius="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="255"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Slider x:Name="MaxPriceSlider"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Center"
+                                                Minimum="0"
+                                                Maximum="1"
+                                                Value="0"
+                                                SmallChange="0.05"
+                                                LargeChange="0.1"
+                                                TickFrequency="0.1"
+                                                IsSnapToTickEnabled="True"
+                                                Margin="5,0,5,0"/>
+                                        <Border Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Right"
+                                                Width="50"
+                                                Background="White"
+                                                CornerRadius="5"
+                                                BorderThickness="1"
+                                                BorderBrush="LightGray"
+                                                Margin="5,0,5,0">
+                                            <TextBox x:Name="MaxPriceTextBox"
+                                                     VerticalAlignment="Center"
+                                                     Text="{Binding ElementName=MaxPriceSlider, Path=Value, StringFormat={}{0:F2}}"
+                                                     TextAlignment="Center"
+                                                     Background="Transparent"
+                                                     BorderBrush="Transparent"
+                                                     BorderThickness="0" Margin="0,0,-1,0"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </Grid>
                         </Border>
 
-                        <Border CornerRadius="5"
+                        <Border Height="40"
+                                Width="400"
                                 Background="#6D5D6E"
-                                Width="400">
-                            <StackPanel HorizontalAlignment="Center"
-                                        Width="400"
-                                        Height="40">
+                                CornerRadius="5"
+                                Margin="50,0,0,0"
+                                Padding="2"
+                                HorizontalAlignment="Left">
 
-                            </StackPanel>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black"
+                                                  BlurRadius="5"
+                                                  ShadowDepth="0"
+                                                  Opacity="0.3"/>
+                            </Border.Effect>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="115"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Max Accessibility:"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Foreground="#F4EEE0"
+                                           FontSize="13"
+                                           TextAlignment="Center"/>
+
+                                <Border Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Width="275"
+                                        Height="25"
+                                        Background="#F4EEE0"
+                                        CornerRadius="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="215"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Slider x:Name="MaxAccessibilitySlider"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Center"
+                                                Minimum="0"
+                                                Maximum="1"
+                                                Value="0"
+                                                SmallChange="0.05"
+                                                LargeChange="0.1"
+                                                TickFrequency="0.1"
+                                                IsSnapToTickEnabled="True"
+                                                Margin="5,0,5,0"/>
+                                        <Border Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Right"
+                                                Width="50"
+                                                Background="White"
+                                                CornerRadius="5"
+                                                BorderThickness="1"
+                                                BorderBrush="LightGray"
+                                                Margin="5,0,5,0">
+                                            <TextBox x:Name="MaxAccessibilityTextBox"
+                                                     VerticalAlignment="Center"
+                                                     Text="{Binding ElementName=MaxAccessibilitySlider, Path=Value, StringFormat={}{0:F2}}"
+                                                     TextAlignment="Center"
+                                                     Background="Transparent"
+                                                     BorderBrush="Transparent"
+                                                     BorderThickness="0" Margin="0,0,-1,0"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </Grid>
                         </Border>
 
                         <Button Width="150"
                                 Height="40"
                                 VerticalAlignment="Bottom"
                                 HorizontalAlignment="Center"
-                                Margin="0,40,0,0"
+                                Margin="0,45,0,0"
                                 Content="Generate Activity"
-                                Foreground="#F4EEE0">
+                                Foreground="#F4EEE0"
+                                FontSize="15">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="#6D5D6E"
-                                            BorderBrush="#F4EEE0"
                                             BorderThickness="{TemplateBinding BorderThickness}"
-                                            CornerRadius="5">
+                                            CornerRadius="5"
+                                            x:Name="border">
+
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="Black"
+                                                              BlurRadius="5"
+                                                              ShadowDepth="0"
+                                                              Opacity="0.3"/>
+                                        </Border.Effect>
+
                                         <ContentPresenter HorizontalAlignment="Center"
-                                                          VerticalAlignment="Center"/>
+                                                            VerticalAlignment="Center"/>
                                     </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="BorderBrush" Value="#F4EEE0"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
                     </StackPanel>
                 </Border>
             </StackPanel>
-            
-            <Rectangle HorizontalAlignment="Left" Height="548" Stroke="#6D5D6E" VerticalAlignment="Top" Width="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,26,0,0"/>
 
-            <StackPanel Grid.Row="1" Grid.Column="1">
+            <!--<Rectangle HorizontalAlignment="Left" Height="548" Stroke="#6D5D6E" VerticalAlignment="Top" Width="1" Grid.Column="1" Grid.RowSpan="3" Margin="0,26,0,0"/>-->
+
+            <StackPanel Grid.Row="2" Grid.Column="1">
                 <Border BorderBrush="#6D5D6E" 
                         BorderThickness="1" 
                         CornerRadius="5" 
                         Background="#4F4557"
                         Width="215"
-                        Margin="0,20,0,0" 
-                        Height="470"
+                        Margin="0,0,0,0" 
+                        Height="471"
                         Padding="10">
+
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black"
+                      BlurRadius="5"
+                      ShadowDepth="0"
+                      Opacity="0.3"/>
+                    </Border.Effect>
                     <StackPanel Width="215" 
                                 Height="470"
                                 HorizontalAlignment="Center"
@@ -217,12 +582,25 @@
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="#6D5D6E"
-                                            BorderBrush="#F4EEE0"
                                             BorderThickness="{TemplateBinding BorderThickness}"
-                                            CornerRadius="5">
+                                            CornerRadius="5"
+                                            x:Name="border">
+
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="Black"
+                                                              BlurRadius="5"
+                                                              ShadowDepth="0"
+                                                              Opacity="0.3"/>
+                                        </Border.Effect>
+
                                         <ContentPresenter HorizontalAlignment="Center"
-                                                          VerticalAlignment="Center"/>
+                                                            VerticalAlignment="Center"/>
                                     </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="BorderBrush" Value="#F4EEE0"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>

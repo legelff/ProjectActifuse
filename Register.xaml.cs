@@ -82,7 +82,7 @@ namespace ProjectActifuse
 
             // Insert the user data into the database
             string connectionString = "datasource=127.0.0.1; port=3306; username = root; password=; database=actifuse;";
-            string query = "INSERT INTO User (Username, Password, Email, Name, ProfilePicturePath) VALUES (@Username, @Password, @Email, @Name, @ProfilePicturePath)";
+            string query = "INSERT INTO Users (Username, Password, Email, Name, ProfilePicturePath) VALUES (@Username, @Password, @Email, @Name, @ProfilePicturePath)";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -112,7 +112,7 @@ namespace ProjectActifuse
         {
             // Query the database to check if the username or email already exists
             string connectionString = "datasource=127.0.0.1; port=3306; username = root; password=; database=actifuse;";
-            string query = "SELECT COUNT(*) FROM User WHERE Username = @Username OR Email = @Email";
+            string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username OR Email = @Email";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -139,7 +139,7 @@ namespace ProjectActifuse
             // Implement encryption logic
             using (SHA256 sha256 = SHA256.Create())
             {
-                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(saltedPassword));
                 StringBuilder stringBuilder = new StringBuilder();
                 foreach (byte b in hashBytes)
                 {

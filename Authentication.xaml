@@ -14,22 +14,139 @@
         WindowStartupLocation="CenterScreen">
 
     <Border Background="#393646"
-                CornerRadius="20">
+            CornerRadius="10"
+            BorderBrush="{x:Static SystemColors.ControlDarkBrush}"
+            BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="75"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Project Actifuse"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Foreground="#F4EEE0"
-                           FontSize="22"
-                           Margin="0,0,0,0"/>
+            <Rectangle Fill="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" Grid.ColumnSpan="2"></Rectangle>
 
-            <Border Grid.Row="1"
+            <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Top" Height="30" Width="Auto" Grid.ColumnSpan="2">
+                <Button Width="40" 
+                         Height="30" 
+                         Margin="0" 
+                         Click="TitleBarMinimize" 
+                         BorderThickness="0" Background="#4F4557" 
+                         Foreground="#F4EEE0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#4F4557"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                 BorderBrush="{TemplateBinding BorderBrush}"
+                                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                                 x:Name="border">
+                                            <ContentPresenter HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="#6D5D6E"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                    _
+                </Button>
+
+                <Button Width="40" 
+                         Height="30" 
+                         Margin="0" 
+                         Click="TitleBarMaximize" 
+                         BorderThickness="0" 
+                         Background="#4F4557" 
+                         Foreground="#F4EEE0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#4F4557"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                 BorderBrush="{TemplateBinding BorderBrush}"
+                                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                                 x:Name="border">
+                                            <ContentPresenter HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="#6D5D6E"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                    ❐
+                </Button>
+                <Button Width="40" 
+                        Height="30" 
+                        Margin="0" 
+                        Click="TitleBarClose" 
+                        BorderThickness="0" 
+                        Background="#4F4557" 
+                        Foreground="#F4EEE0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#4F4557"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                 BorderBrush="{TemplateBinding BorderBrush}"
+                                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                                 CornerRadius="0,10,0,0"
+                                                 x:Name="border">
+                                            <ContentPresenter HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="Red"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                    ✕
+                </Button>
+            </WrapPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Image Source= "/Images/logoActifuse.png"
+                        HorizontalAlignment="Left" 
+                       Margin="0,4,0,4" 
+                       Width="31"/>
+
+                <TextBlock Text="Actifuse"
+                            Foreground="#F4EEE0"
+                            VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <TextBlock Text="Project Actifuse"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Foreground="#F4EEE0"
+                        FontSize="22"
+                        Margin="0,0,0,0"
+                       Grid.Row="1"/>
+
+            <Border Grid.Row="2"
                     BorderBrush="#F4EEE0"
                     CornerRadius="5"
                     VerticalAlignment="Center"
@@ -102,7 +219,7 @@
                 </StackPanel>
             </Border>
 
-            <Frame Grid.Row="2" x:Name="AuthenticationFrame" Source="LoginPage.xaml" NavigationUIVisibility="Hidden"/>
+            <Frame Grid.Row="3" x:Name="AuthenticationFrame" Source="LoginPage.xaml" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Border>
 </Window>
