@@ -93,6 +93,16 @@ namespace ProjectActifuse
             }
         }
 
+        private void ForgotPassword_Click(object sender, RoutedEventArgs e)
+        {
+            // Open the Forgot password window
+            ForgotPassword forgotpassword = new ForgotPassword();
+            forgotpassword.Show();
+
+            // Close the Authentication window
+            authenticationWindow.Hide();
+        }
+
         //private string originalPassword; // Variable to store original password
 
         //private void ToggleButton_Checked(object sender, RoutedEventArgs e)
