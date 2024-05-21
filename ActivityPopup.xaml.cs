@@ -22,6 +22,7 @@ namespace ProjectActifuse
         public ActivityPopup()
         {
             InitializeComponent();
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
         }
 
         private void TitleBarMinimize(object sender, RoutedEventArgs e)
@@ -57,8 +58,39 @@ namespace ProjectActifuse
             txtType.Text = $"{type}";
             txtDescription.Text = $"Description: {description}";
             txtParticipants.Text = $"Participants: {participants}";
-            txtPrice.Text = $"Price: {price}";
-            txtAccessibility.Text = $"Accessibility: {accessibility}";
+
+            string priceContext;
+
+            if (double.Parse(price) > 0.50)
+            {
+                priceContext = "Expensive";
+            }
+
+            else if (double.Parse(price) == 0)
+            {
+                priceContext = "Free";
+            }
+
+            else
+            {
+                priceContext = "Cheap";
+            }
+
+            txtPrice.Text = $"Price: {priceContext} ({price})";
+
+            string accessibilityContext;
+
+            if (double.Parse(accessibility) > 0.50)
+            {
+                accessibilityContext = "Convenient";
+            }
+
+            else
+            {
+                accessibilityContext = "Challenging";
+            }
+
+            txtAccessibility.Text = $"Accessibility: {accessibilityContext} ({accessibility})";
 
             // Conditionally display the link
             if (!string.IsNullOrEmpty(link))
