@@ -158,7 +158,8 @@
 
                 <Button Background="Transparent"
                         BorderThickness="0"
-                         Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,112,0">
+                         Grid.Column="0" Margin="0,0,0,0"
+                        Click="HomeNav_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="Transparent"
@@ -198,7 +199,8 @@
                 </Button>
 
                 <Button Background="Transparent"
-                        BorderThickness="0" Grid.ColumnSpan="3" Margin="104,0,112,0">
+                        BorderThickness="0" Grid.Column="1" Margin="0,0,0,0"
+                        Click="HistoryNav_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="Transparent"
@@ -239,7 +241,8 @@
 
                 <Button Background="Transparent"
                         BorderThickness="0"
-                        Grid.Column="1" Grid.ColumnSpan="3" Margin="112,0,112,0">
+                        Grid.Column="2" Margin="0,0,0,0"
+                        Click="SupportNav_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="Transparent"
@@ -322,7 +325,8 @@
 
                 <Button Background="Transparent"
                         BorderThickness="0"
-                        Grid.Column="6">
+                        Grid.Column="6"
+                        Click="ProfileNav_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="Transparent"
@@ -385,7 +389,7 @@
 
 
             <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
-                <Frame Grid.Row="2" x:Name="GeneratorFrame" Source="Generator.xaml" NavigationUIVisibility="Hidden"/>
+                <Frame Grid.Row="2" x:Name="MainFrame" Source="Generator.xaml" NavigationUIVisibility="Hidden"/>
 
 
                 <!--<Rectangle HorizontalAlignment="Left" Height="548" Stroke="#6D5D6E" VerticalAlignment="Top" Width="1" Grid.Column="1" Grid.RowSpan="3" Margin="0,26,0,0"/>-->

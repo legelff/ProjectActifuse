@@ -20,7 +20,8 @@
                           Margin="0,0,0,0"
                           Content="Random"
                           Foreground="#F4EEE0"
-                          FontSize="15">
+                          FontSize="15"
+                        Click="RandomGen_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="#6D5D6E"
@@ -332,7 +333,8 @@
                                   Margin="0,45,0,0"
                                   Content="Generate Activity"
                                   Foreground="#F4EEE0"
-                                  FontSize="15">
+                                  FontSize="15"
+                                Click="FilterGen_Click">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="#6D5D6E"

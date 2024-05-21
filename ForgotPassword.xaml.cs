@@ -45,11 +45,6 @@ namespace ProjectActifuse
 
         private void TitleBarClose(object sender, RoutedEventArgs e)
         {
-            // go back to login page
-            Authentication authenticationWindow = new Authentication();
-            authenticationWindow.Show();
-
-            // Close the current window
             this.Close();
         }
 
@@ -212,6 +207,16 @@ namespace ProjectActifuse
                 // Handle exceptions
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
+        }
+
+        private void BackToLogin_Click(object sender, RoutedEventArgs e)
+        {
+            // go back to login page
+            Authentication authenticationWindow = new Authentication();
+            authenticationWindow.Show();
+
+            // Close the current window
+            this.Close();
         }
     }
 }

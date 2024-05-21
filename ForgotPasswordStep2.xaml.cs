@@ -46,11 +46,6 @@ namespace ProjectActifuse
 
         private void TitleBarClose(object sender, RoutedEventArgs e)
         {
-            // go back to login page
-            Authentication authenticationWindow = new Authentication();
-            authenticationWindow.Show();
-
-            // Close the current window
             this.Close();
         }
 
@@ -134,6 +129,16 @@ namespace ProjectActifuse
                 }
                 return stringBuilder.ToString();
             }
+        }
+
+        private void BackToLogin_Click(object sender, RoutedEventArgs e)
+        {
+            // go back to login page
+            Authentication authenticationWindow = new Authentication();
+            authenticationWindow.Show();
+
+            // Close the current window
+            this.Close();
         }
     }
 }

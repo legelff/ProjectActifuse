@@ -92,5 +92,25 @@ namespace ProjectActifuse
 
             this.Close();
         }
+
+        private void HomeNav_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new Generator();
+        }
+
+        private void HistoryNav_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new History();
+        }
+
+        private void SupportNav_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new Support();
+        }
+
+        private void ProfileNav_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new Profile();
+        }
     }
 }

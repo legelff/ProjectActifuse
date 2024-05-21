@@ -100,7 +100,7 @@ namespace ProjectActifuse
             forgotpassword.Show();
 
             // Close the Authentication window
-            authenticationWindow.Hide();
+            authenticationWindow.Close();
         }
 
         //private string originalPassword; // Variable to store original password
