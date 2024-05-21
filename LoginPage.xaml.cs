@@ -54,7 +54,7 @@ namespace ProjectActifuse
                     if (userCount > 0)
                     {
                         // Open the MainWindow
-                        MainWindow mainWindow = new MainWindow();
+                        MainWindow mainWindow = new MainWindow(username);
                         mainWindow.Show();
 
                         // Close the Authentication window

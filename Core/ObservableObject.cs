@@ -37,5 +37,13 @@ namespace ProjectActifuse.Core
         private System.Windows.Media.ImageSource selectedProfilePicture;
 
         public System.Windows.Media.ImageSource SelectedProfilePicture { get => selectedProfilePicture; set => SetProperty(ref selectedProfilePicture, value); }
+
+        private System.Windows.Media.ImageSource profilePicturePath;
+
+        public System.Windows.Media.ImageSource ProfilePicturePath { get => profilePicturePath; set => SetProperty(ref profilePicturePath, value); }
+
+        private string name1;
+
+        public string Name { get => name1; set => SetProperty(ref name1, value); }
     }
 }
