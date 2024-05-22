@@ -26,6 +26,10 @@ namespace ProjectActifuse
             InitializeComponent();
             Username = username;
 
+            // Navigate to Generator.xaml and pass the Username
+            Generator generatorPage = new Generator(Username);
+            MainFrame.Content = generatorPage;
+
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -98,7 +102,7 @@ namespace ProjectActifuse
 
         private void HomeNav_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Generator();
+            MainFrame.Content = new Generator(Username);
         }
 
         private void HistoryNav_Click(object sender, RoutedEventArgs e)

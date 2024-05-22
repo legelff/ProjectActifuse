@@ -507,6 +507,7 @@
                                            FontWeight="Bold"
                                            x:Name="TotalActivitiesStat"/>
 
+                                <!--Either productive for higher than 20 or lazy for lower.-->
                                 <TextBlock Text="Lazy!"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
@@ -553,7 +554,8 @@
                                        FontWeight="Bold"
                                            x:Name="AccessibilityStat"/>
 
-                                <TextBlock Text="Boring!"
+                                <!--Either boring for higher than 0.50 or adventurous for lower.-->
+                                <TextBlock Text="Adventurous!"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
                                          Padding="0"
@@ -599,6 +601,7 @@
                                        FontWeight="Bold"
                                            x:Name="AveragePriceStat"/>
 
+                                <!--Either rich for higher than 0.50 or economical for lower.-->
                                 <TextBlock Text="Economical!"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
@@ -645,6 +648,7 @@
                                        FontWeight="Bold"
                                            x:Name="FavoriteTypeStat"/>
 
+                                <!--Immaculate taste for any type.-->
                                 <TextBlock Text="Immaculate taste!"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
