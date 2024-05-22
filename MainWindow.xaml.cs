@@ -19,9 +19,12 @@ namespace ProjectActifuse
     public partial class MainWindow : Window
     {
         private string connectionString = "datasource=127.0.0.1; port=3306; username = root; password=; database=actifuse;";
+
+        public string Username { get; private set; }
         public MainWindow(string username)
         {
             InitializeComponent();
+            Username = username;
 
             try
             {
@@ -105,12 +108,12 @@ namespace ProjectActifuse
 
         private void SupportNav_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Support();
+            MainFrame.Content = new Support(Username);
         }
 
         private void ProfileNav_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Profile();
+            MainFrame.Content = new Profile(Username);
         }
     }
 }

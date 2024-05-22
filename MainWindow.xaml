@@ -19,6 +19,13 @@
             BorderBrush="{x:Static SystemColors.ControlDarkBrush}"
             BorderThickness="1"
             CornerRadius="10">
+        <!--<Border.Effect>
+            <DropShadowEffect Color="Black"
+                         BlurRadius="5"
+                         ShadowDepth="0"
+                         Opacity="0.3"/>
+        </Border.Effect>-->
+        
         <Grid>
             <!--<Grid.ColumnDefinitions>
                 <ColumnDefinition/>

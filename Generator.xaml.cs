@@ -132,7 +132,7 @@ namespace ProjectActifuse
             // Combine the base URL with the query string
             string activityQuery = string.IsNullOrEmpty(queryString) ? baseUrl : $"{baseUrl}?{queryString}";
 
-            MessageBox.Show(activityQuery);
+            //MessageBox.Show(activityQuery);
 
             try
             {

@@ -20,9 +20,10 @@ namespace ProjectActifuse
     /// </summary>
     public partial class Support : Page
     {
-        public Support()
+        public Support(string username)
         {
             InitializeComponent();
+            MessageBox.Show(username);
         }
     }
 }
