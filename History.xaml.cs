@@ -20,9 +20,22 @@ namespace ProjectActifuse
     /// </summary>
     public partial class History : Page
     {
-        public History()
+        public string Username { get; set; }
+
+        public History(string username)
         {
             InitializeComponent();
+            Username = username;
+        }
+
+        private void RefreshAll_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Activity_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

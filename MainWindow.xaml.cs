@@ -107,7 +107,7 @@ namespace ProjectActifuse
 
         private void HistoryNav_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new History();
+            MainFrame.Content = new History(Username);
         }
 
         private void SupportNav_Click(object sender, RoutedEventArgs e)
