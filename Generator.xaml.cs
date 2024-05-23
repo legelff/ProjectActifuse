@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -30,6 +31,7 @@ namespace ProjectActifuse
             InitializeComponent();
             Loaded += Generator_Loaded;
             Username = username;
+            LoadHistoryPreview();
         }
 
         // Loaded event handler to set default values
@@ -42,6 +44,83 @@ namespace ProjectActifuse
             // Set default values for MaxAccessibilitySlider and MaxAccessibilityTextBox
             MaxAccessibilitySlider.Value = 1.00;
             MaxAccessibilityTextBox.Text = "1.00";
+        }
+
+        // Method to load history items when the page loads
+        private async void LoadHistoryPreview()
+        {
+            try
+            {
+                string connectionString = "datasource=127.0.0.1; port=3306; username = root; password=; database=actifuse;";
+
+                // First, query the users table to get the UserId based on the Username
+                string getUserIdQuery = "SELECT UserId FROM users WHERE Username = @username";
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    // Create a MySqlCommand object with the query and connection
+                    using (MySqlCommand getUserIdCommand = new MySqlCommand(getUserIdQuery, connection))
+                    {
+                        // Add parameters to the query (assuming you have a variable for the current username)
+                        getUserIdCommand.Parameters.AddWithValue("@username", Username);
+
+                        // Execute the query and get the UserId
+                        object result = await getUserIdCommand.ExecuteScalarAsync();
+
+                        if (result != null)
+                        {
+                            int userId = Convert.ToInt32(result);
+
+                            // Now that we have the UserId, we can fetch the history items for that user
+                            // SQL query to fetch the latest 10 history items for the current user
+                            string getHistoryQuery = @"
+                                                    SELECT historys.*, activitys.Type, activitys.Name
+                                                    FROM historys
+                                                    INNER JOIN activitys ON historys.ActivityId = activitys.ActivityId
+                                                    WHERE historys.UserId = @userId
+                                                    ORDER BY historys.GeneratedDateTime DESC
+                                                    LIMIT 10";
+
+                            // Create a MySqlCommand object with the query and connection
+                            using (MySqlCommand getHistoryCommand = new MySqlCommand(getHistoryQuery, connection))
+                            {
+                                // Add parameters to the query
+                                getHistoryCommand.Parameters.AddWithValue("@userId", userId);
+
+                                // Execute the query and get a MySqlDataReader
+                                using (MySqlDataReader reader = await getHistoryCommand.ExecuteReaderAsync())
+                                {
+                                    // Iterate over the result set
+                                    while (reader.Read())
+                                    {
+                                        int activityId = reader.GetInt32("ActivityId");
+                                        string type = reader.GetString("Type");
+                                        type = char.ToUpper(type[0]) + type.Substring(1);
+                                        string description = reader.GetString("Name");
+
+                                        // Create a Border dynamically
+                                        Border activityBorder = CreateActivityBorder(type, description);
+
+                                        // Add the dynamically created Border to the top of the HistoryPreviewContainer
+                                        HistoryPreviewContainer.Children.Insert(0, activityBorder);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("User not found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions
+                Console.WriteLine("Error: " + ex.Message);
+            }
         }
 
         private void ResetFilters_Click(object sender, RoutedEventArgs e)
@@ -279,6 +358,20 @@ namespace ProjectActifuse
 
                 // Insert the activity data into the database
                 await InsertActivity(activityId, type, description, participants, price, accessibility, link);
+
+                // Create Border dynamically
+                Border activityBorder = CreateActivityBorder(type, description);
+
+                // Check if the number of child elements exceeds 10
+                if (HistoryPreviewContainer.Children.Count >= 10)
+                {
+                    // Remove the last child (most bottom one)
+                    HistoryPreviewContainer.Children.RemoveAt(HistoryPreviewContainer.Children.Count - 1);
+                }
+
+                // Insert the dynamically created Border at the top of the StackPanel
+                HistoryPreviewContainer.Children.Insert(0, activityBorder);
+
                 // Connection string to connect to your MySQL database
                 string connectionString = "datasource=127.0.0.1; port=3306; username=root; password=; database=actifuse;";
 
@@ -362,6 +455,57 @@ namespace ProjectActifuse
                 MessageBox.Show($"Error: {ex.Message}");
                 return false;
             }
+        }
+
+        private Border CreateActivityBorder(string type, string description)
+        {
+            // Create a Border element
+            Border border = new Border();
+            border.CornerRadius = new CornerRadius(5);
+            border.Background = new SolidColorBrush(Color.FromRgb(109, 93, 110));
+            border.Width = 190;
+            border.Height = 93;
+            border.Margin = new Thickness(0, 12, 0, 0);
+            border.Padding = new Thickness(5);
+            border.Effect = new DropShadowEffect() { Color = Colors.Black, BlurRadius = 5, ShadowDepth = 0, Opacity = 0.3 };
+
+            // Create a StackPanel inside the Border
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.HorizontalAlignment = HorizontalAlignment.Center;
+            stackPanel.VerticalAlignment = VerticalAlignment.Center;
+
+            // Create a TextBlock for the Type
+            TextBlock typeTextBlock = new TextBlock();
+            typeTextBlock.Text = type;
+            typeTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            typeTextBlock.VerticalAlignment = VerticalAlignment.Center;
+            typeTextBlock.Padding = new Thickness(0);
+            typeTextBlock.TextAlignment = TextAlignment.Center;
+            typeTextBlock.TextWrapping = TextWrapping.Wrap;
+            typeTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(244, 238, 224));
+            typeTextBlock.FontSize = 20;
+            typeTextBlock.FontWeight = FontWeights.Bold;
+            typeTextBlock.Margin = new Thickness(0, 0, 0, 10);
+
+            // Create a TextBlock for the Description
+            TextBlock descriptionTextBlock = new TextBlock();
+            descriptionTextBlock.Text = description;
+            descriptionTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            descriptionTextBlock.VerticalAlignment = VerticalAlignment.Center;
+            descriptionTextBlock.Padding = new Thickness(0);
+            descriptionTextBlock.TextAlignment = TextAlignment.Center;
+            descriptionTextBlock.TextWrapping = TextWrapping.Wrap;
+            descriptionTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(244, 238, 224));
+            descriptionTextBlock.Margin = new Thickness(0, 0, 0, 0);
+
+            // Add TextBlocks to the StackPanel
+            stackPanel.Children.Add(typeTextBlock);
+            stackPanel.Children.Add(descriptionTextBlock);
+
+            // Set the StackPanel as the Child of the Border
+            border.Child = stackPanel;
+
+            return border;
         }
     }
 }

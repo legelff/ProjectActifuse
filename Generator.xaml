@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ProjectActifuse"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="800"
       Title="Generator"
       Background="Transparent">
 
@@ -399,144 +399,223 @@
 
             <StackPanel>
                 <TextBlock Text="History"
-           VerticalAlignment="Center"
-           HorizontalAlignment="Center"
-           Foreground="#F4EEE0"
-           FontSize="15"
-           Margin="0,1,0,20"/>
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="#F4EEE0"
+                           FontSize="15"
+                           Margin="0,1,0,20"/>
 
                 <Border BorderBrush="#6D5D6E" 
-        BorderThickness="1" 
-        CornerRadius="5" 
-        Background="#4F4557"
-        Width="216" 
-        Height="430"
-        Padding="10" Margin="0,1,0,0">
+                      BorderThickness="1" 
+                      CornerRadius="5" 
+                      Background="#4F4557"
+                      Width="216" 
+                      Height="430"
+                      Padding="0,0,0,10" 
+                        Margin="0,1,0,0">
 
                     <Border.Effect>
                         <DropShadowEffect Color="Black"
-      BlurRadius="5"
-      ShadowDepth="0"
-      Opacity="0.3"/>
+                                        BlurRadius="5"
+                                        ShadowDepth="0"
+                                        Opacity="0.3"/>
                     </Border.Effect>
-                    <StackPanel Width="216" 
-                Height="430"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-                        <Border CornerRadius="5"
-                Background="#6D5D6E"
-                Width="190"
-                Height="85"
-                Margin="0,11,0,0">
-                            <Border.Effect>
-                                <DropShadowEffect Color="Black"
-                                  BlurRadius="5"
-                                  ShadowDepth="0"
-                                  Opacity="0.3"/>
-                            </Border.Effect>
-                            <TextBlock Text="Take a class at your local community center that interests you"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Padding="5"
-                       TextAlignment="Center"
-                       TextWrapping="Wrap"
-                       Foreground="#F4EEE0"/>
-                        </Border>
 
-                        <Border CornerRadius="5"
-                Background="#6D5D6E"
-                Width="190"
-                Height="85"
-                Margin="0,10,0,0">
-                            <Border.Effect>
-                                <DropShadowEffect Color="Black"
-                                  BlurRadius="5"
-                                  ShadowDepth="0"
-                                  Opacity="0.3"/>
-                            </Border.Effect>
-                            <TextBlock Text="Configure two-factor authentication on your accounts"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Padding="5"
-                       TextAlignment="Center"
-                       TextWrapping="Wrap"
-                       Foreground="#F4EEE0"/>
-                        </Border>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <StackPanel Width="216" 
+                                  Height="auto"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                    CanVerticallyScroll="True"
+                                    x:Name="HistoryPreviewContainer">
 
-                        <Border CornerRadius="5"
-                Background="#6D5D6E"
-                Width="190"
-                Height="85"
-                Margin="0,10,0,0">
-                            <Border.Effect>
-                                <DropShadowEffect Color="Black"
-                                  BlurRadius="5"
-                                  ShadowDepth="0"
-                                  Opacity="0.3"/>
-                            </Border.Effect>
-                            <TextBlock Text="Create a compost pile"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Padding="5"
-                       TextAlignment="Center"
-                       TextWrapping="Wrap"
-                       Foreground="#F4EEE0"/>
-                        </Border>
+                            <!--<Border CornerRadius="5"
+                                      Background="#6D5D6E"
+                                      Width="190"
+                                      Height="93"
+                                      Margin="0,12,0,0"
+                                    Padding="5">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="Black"
+                                                BlurRadius="5"
+                                                ShadowDepth="0"
+                                                Opacity="0.3"/>
+                                </Border.Effect>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                        <Border CornerRadius="5"
-                Background="#6D5D6E"
-                Width="190"
-                Height="85"
-                Margin="0,10,0,0">
-                            <Border.Effect>
-                                <DropShadowEffect Color="Black"
-                                  BlurRadius="5"
-                                  ShadowDepth="0"
-                                  Opacity="0.3"/>
-                            </Border.Effect>
-                            <TextBlock Text="Contribute code or a monetary donation to an open-source software project"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Padding="5"
-                       TextAlignment="Center"
-                       TextWrapping="Wrap"
-                       Foreground="#F4EEE0"/>
-                        </Border>
+                                    <TextBlock Text="Type"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Padding="0"
+                                         TextAlignment="Center"
+                                         TextWrapping="Wrap"
+                                         Foreground="#F4EEE0"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           x:Name="HistoryPreviewType1"
+                                           Margin="0,0,0,10"/>
 
-                        <Button Width="70"
-                Height="20"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Center"
-                Margin="0,15,0,0"
-                Content="Show more"
-                FontSize="8"
-                Foreground="#F4EEE0">
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="#6D5D6E"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5"
-                            x:Name="border">
+                                    <TextBlock Text="Gift your hey favorite person a new phone"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Padding="0"
+                                         TextAlignment="Center"
+                                         TextWrapping="Wrap"
+                                         Foreground="#F4EEE0"
+                                           Margin="0,0,0,0"
+                                           x:Name="HistoryPreviewName1"/>
+                                </StackPanel>
+                            </Border>
 
-                                        <Border.Effect>
-                                            <DropShadowEffect Color="Black"
-                                              BlurRadius="5"
-                                              ShadowDepth="0"
-                                              Opacity="0.3"/>
-                                        </Border.Effect>
+                            <Border CornerRadius="5"
+                                Background="#6D5D6E"
+                                Width="190"
+                                Height="93"
+                                Margin="0,12,0,0">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="Black"
+                                                BlurRadius="5"
+                                                ShadowDepth="0"
+                                                Opacity="0.3"/>
+                                </Border.Effect>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                                        <ContentPresenter HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="border" Property="BorderBrush" Value="#F4EEE0"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </StackPanel>
+                                    <TextBlock Text="Type"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Padding="0"
+                                         TextAlignment="Center"
+                                         TextWrapping="Wrap"
+                                         Foreground="#F4EEE0"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           x:Name="HistoryPreviewType2"
+                                           Margin="0,0,0,10"/>
+
+                                    <TextBlock Text="Gift your favorite person a new phone"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             Padding="0"
+                                             TextAlignment="Center"
+                                             TextWrapping="Wrap"
+                                             Foreground="#F4EEE0"
+                                               Margin="0,0,0,0"
+                                               x:Name="HistoryPreviewName2"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border CornerRadius="5"
+                              Background="#6D5D6E"
+                              Width="190"
+                              Height="93"
+                              Margin="0,12,0,0">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="Black"
+                                                BlurRadius="5"
+                                                ShadowDepth="0"
+                                                Opacity="0.3"/>
+                                </Border.Effect>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                    <TextBlock Text="Type"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Padding="0"
+                                         TextAlignment="Center"
+                                         TextWrapping="Wrap"
+                                         Foreground="#F4EEE0"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           x:Name="HistoryPreviewType3"
+                                           Margin="0,0,0,10"/>
+
+                                    <TextBlock Text="Gift your favorite person a new phone"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Padding="0"
+                                         TextAlignment="Center"
+                                         TextWrapping="Wrap"
+                                         Foreground="#F4EEE0"
+                                           Margin="0,0,0,0"
+                                           x:Name="HistoryPreviewName3"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border CornerRadius="5"
+                              Background="#6D5D6E"
+                              Width="190"
+                              Height="93"
+                              Margin="0,12,0,0">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="Black"
+                                                BlurRadius="5"
+                                                ShadowDepth="0"
+                                                Opacity="0.3"/>
+                                </Border.Effect>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                    <TextBlock Text="Type"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Padding="0"
+                                         TextAlignment="Center"
+                                         TextWrapping="Wrap"
+                                         Foreground="#F4EEE0"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           x:Name="HistoryPreviewType4"
+                                           Margin="0,0,0,10"/>
+
+                                    <TextBlock Text="Gift your favorite person a new phone"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Padding="0"
+                                         TextAlignment="Center"
+                                         TextWrapping="Wrap"
+                                         Foreground="#F4EEE0"
+                                           Margin="0,0,0,0"
+                                           x:Name="HistoryPreviewName4"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border CornerRadius="5"
+                              Background="#6D5D6E"
+                              Width="190"
+                              Height="93"
+                              Margin="0,12,0,0">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="Black"
+                                                BlurRadius="5"
+                                                ShadowDepth="0"
+                                                Opacity="0.3"/>
+                                </Border.Effect>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                    <TextBlock Text="Type"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Padding="0"
+                                         TextAlignment="Center"
+                                         TextWrapping="Wrap"
+                                         Foreground="#F4EEE0"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           x:Name="HistoryPreviewType5"
+                                           Margin="0,0,0,10"/>
+
+                                    <TextBlock Text="Gift your favorite person a new phone"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Padding="0"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap"
+                                            Foreground="#F4EEE0"
+                                            Margin="0,0,0,0"
+                                            x:Name="HistoryPreviewName5"/>
+                                </StackPanel>
+                            </Border>-->
+                        </StackPanel>
+                    </ScrollViewer>
                 </Border>
             </StackPanel>
         </StackPanel>
