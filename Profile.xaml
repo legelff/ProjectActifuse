@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ProjectActifuse"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:core="clr-namespace:ProjectActifuse.Core" d:DataContext="{d:DesignInstance Type=core:ObservableObject}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="800"
       Title="Profile"
       Background="Transparent">
     <Grid>
@@ -496,7 +496,7 @@
                                            Margin="0,5,0,5"
                                            FontSize="15"/>
 
-                                <TextBlock Text="10"
+                                <TextBlock Text="N/A"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
                                              Padding="0"
@@ -543,7 +543,7 @@
                                                Margin="0,5,0,5"
                                                FontSize="15"/>
 
-                                <TextBlock Text="0.70"
+                                <TextBlock Text="N/A"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
                                          Padding="0"
@@ -555,7 +555,7 @@
                                            x:Name="AccessibilityStat"/>
 
                                 <!--Either boring for higher than 0.50 or adventurous for lower.-->
-                                <TextBlock Text="Adventurous!"
+                                <TextBlock Text="Complete some activities!"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
                                          Padding="0"
@@ -590,7 +590,7 @@
                                                Margin="0,5,0,5"
                                                FontSize="15"/>
 
-                                <TextBlock Text="0.20"
+                                <TextBlock Text="N/A"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
                                          Padding="0"
@@ -602,7 +602,7 @@
                                            x:Name="AveragePriceStat"/>
 
                                 <!--Either rich for higher than 0.50 or economical for lower.-->
-                                <TextBlock Text="Economical!"
+                                <TextBlock Text="Complete some activities!"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
                                          Padding="0"
@@ -637,7 +637,7 @@
                                                Margin="0,5,0,5"
                                                FontSize="15"/>
 
-                                <TextBlock Text="Social"
+                                <TextBlock Text="N/A"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
                                          Padding="0"

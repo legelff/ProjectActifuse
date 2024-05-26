@@ -63,7 +63,7 @@ namespace ProjectActifuse
                     // Create a MySqlCommand object with the query and connection
                     using (MySqlCommand getUserIdCommand = new MySqlCommand(getUserIdQuery, connection))
                     {
-                        // Add parameters to the query (assuming you have a variable for the current username)
+                        // Add parameters to the query
                         getUserIdCommand.Parameters.AddWithValue("@username", Username);
 
                         // Execute the query and get the UserId
@@ -73,7 +73,6 @@ namespace ProjectActifuse
                         {
                             int userId = Convert.ToInt32(result);
 
-                            // Now that we have the UserId, we can fetch the history items for that user
                             // SQL query to fetch the latest 10 history items for the current user
                             string getHistoryQuery = @"
                                                     SELECT historys.*, activitys.Type, activitys.Name

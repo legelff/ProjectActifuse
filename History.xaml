@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ProjectActifuse"
       xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
       mc:Ignorable="d" 
-      d:DesignHeight="650" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="History">
 
     <Grid>
@@ -43,7 +43,7 @@
                                     CanVerticallyScroll="True"
                                     x:Name="FavoritesContainer">
 
-                            <Border CornerRadius="5"
+                            <!--<Border CornerRadius="5"
                                         Background="#6D5D6E"
                                         Width="190"
                                         Height="93"
@@ -55,161 +55,172 @@
                                                 Opacity="0.3"/>
                                 </Border.Effect>
 
-                                <Button Background="Transparent"
-                                        BorderThickness="1"
-                                        BorderBrush="Transparent"
-                                        Padding="5"
-                                        Click="Activity_Click">
-                                    
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="#6D5D6E"
-                                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                                  CornerRadius="5"
-                                                  x:Name="border"
-                                                    Padding="5">
 
-                                                <ContentPresenter HorizontalAlignment="Center"
-                                                                 VerticalAlignment="Center"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="border" Property="BorderBrush" Value="#F4EEE0"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                    
-                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                                        <TextBlock Text="Dummy text to test out the favorites"
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                    <Button Background="Transparent"
+                                            BorderThickness="0"
+                                            BorderBrush="Transparent"
+                                            Margin="5,0,5,5"
+                                            Click="Activity_Click">
+
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="#6D5D6E"
+                                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                                          CornerRadius="5"
+                                                          x:Name="border">
+
+                                                    <Border.Effect>
+                                                        <DropShadowEffect Color="Black"
+                                                                        BlurRadius="5"
+                                                                        ShadowDepth="0"
+                                                                        Opacity="0.3"/>
+                                                    </Border.Effect>
+
+                                                    <ContentPresenter HorizontalAlignment="Center"
+                                                                        VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="border" Property="BorderBrush" Value="#F4EEE0"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <TextBlock Text="Replace this text with the Name of the activity"
                                                     HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
-                                                    Padding="0"
+                                                    Padding="5"
                                                     TextAlignment="Center"
                                                     TextWrapping="Wrap"
                                                     Foreground="#F4EEE0"
-                                                    Margin="0,0,0,10"/>
+                                                    Margin="0,0,0,0"/>
+                                    </Button>
 
-                                        <StackPanel Orientation="Horizontal"
+                                    <StackPanel Orientation="Horizontal"
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center">
-                                            <ToggleButton Height="20"
+                                        <ToggleButton Height="20"
                                                           Width="20"
                                                           BorderThickness="1"
                                                           BorderBrush="#F4EEE0"
                                                           Background="Transparent"
-                                                          Margin="0,0,5,0">
-                                                <ToggleButton.Template>
-                                                    <ControlTemplate TargetType="ToggleButton">
-                                                        <Border Background="#6D5D6E"
+                                                          Margin="0,0,5,0"
+                                                          Click="IsComplete_Click">
+                                            <ToggleButton.Template>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Border Background="#6D5D6E"
                                                                 BorderThickness="{TemplateBinding BorderThickness}"
                                                                 CornerRadius="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                                                                 x:Name="border"
                                                                 BorderBrush="#F4EEE0">
 
-                                                            <Border.Effect>
-                                                                <DropShadowEffect Color="Black"
+                                                        <Border.Effect>
+                                                            <DropShadowEffect Color="Black"
                                                                                   BlurRadius="5"
                                                                                   ShadowDepth="0"
                                                                                   Opacity="0.3"/>
-                                                            </Border.Effect>
+                                                        </Border.Effect>
 
-                                                            <ContentPresenter HorizontalAlignment="Center"
+                                                        <ContentPresenter HorizontalAlignment="Center"
                                                                                 VerticalAlignment="Center"/>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter TargetName="border" Property="BorderBrush" Value="Green"/>
-                                                            </Trigger>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="border" Property="BorderBrush" Value="Green"/>
+                                                        </Trigger>
 
-                                                            <Trigger Property="IsChecked" Value="True">
-                                                                <Setter TargetName="border" Property="BorderBrush" Value="Green"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </ToggleButton.Template>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter TargetName="border" Property="BorderBrush" Value="Green"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </ToggleButton.Template>
 
-                                                <fa:ImageAwesome Icon="Check" Foreground="#F4EEE0" Height="10" Width="10"/>
-                                            </ToggleButton>
+                                            <fa:ImageAwesome Icon="Check" Foreground="#F4EEE0" Height="10" Width="10"/>
+                                        </ToggleButton>
 
-                                            <ToggleButton Height="20"
+                                        <ToggleButton Height="20"
                                                           Width="20"
                                                           BorderThickness="1"
                                                           BorderBrush="#F4EEE0"
                                                           Background="Transparent"
-                                                          Margin="0,0,5,0">
-                                                <ToggleButton.Template>
-                                                    <ControlTemplate TargetType="ToggleButton">
-                                                        <Border Background="#6D5D6E"
+                                                          Margin="0,0,5,0"
+                                                          Click="IsFavorite_Click"
+                                                          IsChecked="True">
+                                            <ToggleButton.Template>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Border Background="#6D5D6E"
                                                                 BorderThickness="{TemplateBinding BorderThickness}"
                                                                 CornerRadius="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                                                                 x:Name="border"
                                                                 BorderBrush="#F4EEE0">
 
-                                                            <Border.Effect>
-                                                                <DropShadowEffect Color="Black"
+                                                        <Border.Effect>
+                                                            <DropShadowEffect Color="Black"
                                                                                   BlurRadius="5"
                                                                                   ShadowDepth="0"
                                                                                   Opacity="0.3"/>
-                                                            </Border.Effect>
+                                                        </Border.Effect>
 
-                                                            <ContentPresenter HorizontalAlignment="Center"
+                                                        <ContentPresenter HorizontalAlignment="Center"
                                                                                 VerticalAlignment="Center"/>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter TargetName="border" Property="BorderBrush" Value="Yellow"/>
-                                                            </Trigger>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="border" Property="BorderBrush" Value="Yellow"/>
+                                                        </Trigger>
 
-                                                            <Trigger Property="IsChecked" Value="True">
-                                                                <Setter TargetName="border" Property="BorderBrush" Value="Yellow"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </ToggleButton.Template>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter TargetName="border" Property="BorderBrush" Value="Yellow"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </ToggleButton.Template>
 
-                                                <fa:ImageAwesome Icon="Star" Foreground="#F4EEE0" Height="10" Width="10"/>
-                                            </ToggleButton>
+                                            <fa:ImageAwesome Icon="Star" Foreground="#F4EEE0" Height="10" Width="10"/>
+                                        </ToggleButton>
 
-                                            <Button Height="20"
+                                        <Button Height="20"
                                                     Width="20"
                                                     BorderThickness="1"
                                                     BorderBrush="#F4EEE0"
                                                     Background="Transparent"
-                                                    Margin="0,0,0,0">
-                                                <Button.Template>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="#6D5D6E"
+                                                    Margin="0,0,0,0"
+                                                    Click="Delete_Click">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="#6D5D6E"
                                                                 BorderThickness="{TemplateBinding BorderThickness}"
                                                                 CornerRadius="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
                                                                 x:Name="border"
                                                                 BorderBrush="#F4EEE0">
 
-                                                            <Border.Effect>
-                                                                <DropShadowEffect Color="Black"
+                                                        <Border.Effect>
+                                                            <DropShadowEffect Color="Black"
                                                                                   BlurRadius="5"
                                                                                   ShadowDepth="0"
                                                                                   Opacity="0.3"/>
-                                                            </Border.Effect>
+                                                        </Border.Effect>
 
-                                                            <ContentPresenter HorizontalAlignment="Center"
+                                                        <ContentPresenter HorizontalAlignment="Center"
                                                                                 VerticalAlignment="Center"/>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter TargetName="border" Property="BorderBrush" Value="Red"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Button.Template>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="border" Property="BorderBrush" Value="Red"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
 
-                                                <fa:ImageAwesome Icon="Remove" Foreground="#F4EEE0" Height="10" Width="10"/>
-                                            </Button>
-                                        </StackPanel>
+                                            <fa:ImageAwesome Icon="Remove" Foreground="#F4EEE0" Height="10" Width="10"/>
+                                        </Button>
                                     </StackPanel>
-                                </Button>
-                            </Border>
+                                </StackPanel>
+                            </Border>-->
 
                             <!--<Border CornerRadius="5"
                                 Background="#6D5D6E"
@@ -281,7 +292,7 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    x:Name="HistoryContainer">
-                            <Border CornerRadius="5"
+                            <!--<Border CornerRadius="5"
                                       Background="#6D5D6E"
                                       Width="150"
                                       Height="93"
@@ -337,7 +348,8 @@
                                                           BorderThickness="1"
                                                           BorderBrush="#F4EEE0"
                                                           Background="Transparent"
-                                                          Margin="0,0,5,0">
+                                                          Margin="0,0,5,0"
+                                                          Click="IsComplete_Click">
                                                 <ToggleButton.Template>
                                                     <ControlTemplate TargetType="ToggleButton">
                                                         <Border Background="#6D5D6E"
@@ -376,7 +388,8 @@
                                                           BorderThickness="1"
                                                           BorderBrush="#F4EEE0"
                                                           Background="Transparent"
-                                                          Margin="0,0,5,0">
+                                                          Margin="0,0,5,0"
+                                                          Click="IsFavorite_Click">
                                                 <ToggleButton.Template>
                                                     <ControlTemplate TargetType="ToggleButton">
                                                         <Border Background="#6D5D6E"
@@ -415,7 +428,8 @@
                                                     BorderThickness="1"
                                                     BorderBrush="#F4EEE0"
                                                     Background="Transparent"
-                                                    Margin="0,0,0,0">
+                                                    Margin="0,0,0,0"
+                                                    Click="Delete_Click">
                                                 <Button.Template>
                                                     <ControlTemplate TargetType="Button">
                                                         <Border Background="#6D5D6E"
@@ -447,7 +461,7 @@
                                         </StackPanel>
                                     </StackPanel>
                                 </Button>
-                            </Border>
+                            </Border>-->
 
                             <!--<Border CornerRadius="5"
                                       Background="#6D5D6E"

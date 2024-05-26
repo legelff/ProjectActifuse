@@ -74,6 +74,257 @@ namespace ProjectActifuse
 
             // Set UsernameChangeBox text
             UsernameChangeBox.Text = username;
+
+            //Update highlights
+            UpdateTotalActivities();
+            UpdateAccessibilityAverage();
+            UpdatePriceAverage();
+            UpdateFavoriteType();
+        }
+
+        private async Task UpdateFavoriteType()
+        {
+            try
+            {
+                string connectionString = "datasource=127.0.0.1; port=3306; username=root; password=; database=actifuse;";
+
+                // Connect to MySQL database
+                await using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    // Get UserId based on Username
+                    string getUserIdQuery = "SELECT UserId FROM users WHERE Username = @username";
+                    using (MySqlCommand getUserIdCommand = new MySqlCommand(getUserIdQuery, connection))
+                    {
+                        getUserIdCommand.Parameters.AddWithValue("@username", Username);
+                        object result = await getUserIdCommand.ExecuteScalarAsync();
+                        if (result != null)
+                        {
+                            int userId = Convert.ToInt32(result);
+
+                            // Get the most common Type from user's history
+                            string mostCommonTypeQuery = @"
+                                                        SELECT a.Type, COUNT(*) AS TypeCount
+                                                        FROM historys h
+                                                        INNER JOIN activitys a ON h.ActivityId = a.ActivityId
+                                                        WHERE h.UserId = @userId
+                                                        AND h.IsCompleted = 1
+                                                        GROUP BY a.Type
+                                                        ORDER BY TypeCount DESC
+                                                        LIMIT 1";
+
+                            using (MySqlCommand mostCommonTypeCommand = new MySqlCommand(mostCommonTypeQuery, connection))
+                            {
+                                mostCommonTypeCommand.Parameters.AddWithValue("@userId", userId);
+                                using (MySqlDataReader reader = await mostCommonTypeCommand.ExecuteReaderAsync())
+                                {
+                                    if (await reader.ReadAsync())
+                                    {
+                                        string mostCommonType = char.ToUpper(reader.GetString("Type")[0]) + reader.GetString("Type").Substring(1);
+                                        FavoriteTypeStat.Text = mostCommonType;
+                                    }
+                                    else
+                                    {
+                                        FavoriteTypeStat.Text = "N/A";
+                                        FavoriteTypeStatComment.Text = "Complete some activities!";
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
+        private async Task UpdatePriceAverage()
+        {
+            try
+            {
+                string connectionString = "datasource=127.0.0.1; port=3306; username=root; password=; database=actifuse;";
+
+                // Connect to MySQL database
+                await using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    // Get UserId based on Username
+                    string getUserIdQuery = "SELECT UserId FROM users WHERE Username = @username";
+                    using (MySqlCommand getUserIdCommand = new MySqlCommand(getUserIdQuery, connection))
+                    {
+                        getUserIdCommand.Parameters.AddWithValue("@username", Username);
+                        object result = await getUserIdCommand.ExecuteScalarAsync();
+                        if (result != null)
+                        {
+                            int userId = Convert.ToInt32(result);
+
+                            // Calculate average accessibility
+                            string averagePriceQuery = @"
+                        SELECT AVG(activitys.Price) AS AvgPrice
+                        FROM historys
+                        INNER JOIN activitys ON historys.ActivityId = activitys.ActivityId
+                        WHERE historys.UserId = @userId AND historys.IsCompleted = 1";
+                            using (MySqlCommand averagePriceCommand = new MySqlCommand(averagePriceQuery, connection))
+                            {
+                                averagePriceCommand.Parameters.AddWithValue("@userId", userId);
+                                object avgPriceResult = await averagePriceCommand.ExecuteScalarAsync();
+                                if (avgPriceResult != null && avgPriceResult != DBNull.Value)
+                                {
+                                    double avgPrice = Math.Round(Convert.ToDouble(avgPriceResult), 2);
+                                    string avgPriceString = avgPrice.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+
+                                    // Update AccessibilityStat
+                                    AveragePriceStat.Text = avgPriceString;
+
+                                    if (avgPrice > 0.50)
+                                    {
+                                        AveragePriceStatComment.Text = "Rich!";
+                                    }
+                                    else
+                                    {
+                                        AveragePriceStatComment.Text = "Economical!";
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
+        private async Task UpdateAccessibilityAverage()
+        {
+            try
+            {
+                string connectionString = "datasource=127.0.0.1; port=3306; username=root; password=; database=actifuse;";
+
+                // Connect to MySQL database
+                await using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    // Get UserId based on Username
+                    string getUserIdQuery = "SELECT UserId FROM users WHERE Username = @username";
+                    using (MySqlCommand getUserIdCommand = new MySqlCommand(getUserIdQuery, connection))
+                    {
+                        getUserIdCommand.Parameters.AddWithValue("@username", Username);
+                        object result = await getUserIdCommand.ExecuteScalarAsync();
+                        if (result != null)
+                        {
+                            int userId = Convert.ToInt32(result);
+
+                            // Calculate average accessibility
+                            string averageAccessibilityQuery = @"
+                        SELECT AVG(activitys.Accessibility) AS AvgAccessibility
+                        FROM historys
+                        INNER JOIN activitys ON historys.ActivityId = activitys.ActivityId
+                        WHERE historys.UserId = @userId AND historys.IsCompleted = 1";
+                            using (MySqlCommand averageAccessibilityCommand = new MySqlCommand(averageAccessibilityQuery, connection))
+                            {
+                                averageAccessibilityCommand.Parameters.AddWithValue("@userId", userId);
+                                object avgAccessibilityResult = await averageAccessibilityCommand.ExecuteScalarAsync();
+                                if (avgAccessibilityResult != null && avgAccessibilityResult != DBNull.Value)
+                                {
+                                    double avgAccessibility = Math.Round(Convert.ToDouble(avgAccessibilityResult), 2);
+                                    string avgAccessibilityString = avgAccessibility.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+
+                                    // Update AccessibilityStat
+                                    AccessibilityStat.Text = avgAccessibilityString;
+
+                                    if (avgAccessibility > 0.50)
+                                    {
+                                        AccessibilityStatComment.Text = "Adventurous!";
+                                    }
+                                    else
+                                    {
+                                        AccessibilityStatComment.Text = "Boring!";
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
+        private async void UpdateTotalActivities()
+        {
+            try
+            {
+                string connectionString = "datasource=127.0.0.1; port=3306; username=root; password=; database=actifuse;";
+
+                // Connect to MySQL database
+                await using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    // First, query the users table to get the UserId based on the Username
+                    string getUserIdQuery = "SELECT UserId FROM users WHERE Username = @username";
+                    using (MySqlCommand getUserIdCommand = new MySqlCommand(getUserIdQuery, connection))
+                    {
+                        getUserIdCommand.Parameters.AddWithValue("@username", Username);
+                        object result = await getUserIdCommand.ExecuteScalarAsync();
+
+                        if (result != null)
+                        {
+                            int userId = Convert.ToInt32(result);
+
+                            // Now, count the number of completed activities for the user
+                            string countQuery = "SELECT COUNT(*) FROM historys WHERE UserId = @userId AND IsCompleted = 1";
+                            using (MySqlCommand countCommand = new MySqlCommand(countQuery, connection))
+                            {
+                                countCommand.Parameters.AddWithValue("@userId", userId);
+                                int totalCount = Convert.ToInt32(await countCommand.ExecuteScalarAsync());
+
+                                // Update TotalActivitiesStat
+                                TotalActivitiesStat.Text = totalCount.ToString();
+
+                                // Update TotalActivitiesStatComment based on the count
+                                if (totalCount > 20)
+                                {
+                                    TotalActivitiesStatComment.Text = "Productive!";
+                                }
+                                else
+                                {
+                                    TotalActivitiesStatComment.Text = "Lazy!";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

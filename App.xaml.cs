@@ -12,7 +12,7 @@ namespace ProjectActifuse
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            // Set the startup URI to Login.xaml
+            // Set the startup URI to Authentication.xaml
             StartupUri = new System.Uri("Authentication.xaml", System.UriKind.Relative);
         }
     }

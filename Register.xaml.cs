@@ -17,7 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Security.Cryptography; // Import for encryption
+using System.Security.Cryptography;
 
 namespace ProjectActifuse
 {
@@ -29,7 +29,7 @@ namespace ProjectActifuse
         public Register()
         {
             InitializeComponent();
-            DataContext = this; // Set DataContext to allow data binding
+            DataContext = this; // allow data binding
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

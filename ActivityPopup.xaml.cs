@@ -61,7 +61,7 @@ namespace ProjectActifuse
 
             string priceContext;
 
-            if (double.Parse(price) > 0.50)
+            if (double.Parse(price) > 50)
             {
                 priceContext = "Expensive";
             }
@@ -80,14 +80,14 @@ namespace ProjectActifuse
 
             string accessibilityContext;
 
-            if (double.Parse(accessibility) > 0.50)
+            if (double.Parse(accessibility) > 50)
             {
-                accessibilityContext = "Convenient";
+                accessibilityContext = "Challenging";
             }
 
             else
             {
-                accessibilityContext = "Challenging";
+                accessibilityContext = "Convenient";
             }
 
             txtAccessibility.Text = $"Accessibility: {accessibilityContext} ({accessibility})";
