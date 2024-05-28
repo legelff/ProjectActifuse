@@ -1,7 +1,10 @@
 # Project Actifuse
-A project that focusses on making sure the user can have fun by generating activities based on filters or completely random.
+A project that focuses on making sure the user can have fun by generating activities based on filters or completely random.
 The activities are stored in the history where the user can favorite, mark as completed and remove activities.
-Keeping good UI in mind, Actifuse has been built for a pleasant and seamless experience using boredapi to generate activities.
+Keeping good UI in mind, Actifuse has been built to provide a pleasant and seamless experience by using boredapi (currently offline) to generate activities.
+
+## Version
+Exam version released
 
 ## Sneak peeks of the application...
 ![image](https://github.com/legelff/ProjectActifuse/assets/147063982/ca312529-5e72-4e77-8a71-3f1f5ab2c146)
