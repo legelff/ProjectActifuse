@@ -44,25 +44,41 @@ namespace ProjectActifuse
                 {
                     connection.Open();
 
-                    string query = "SELECT COUNT(*) FROM Users WHERE Username=@Username AND Password=@Password";
+                    string query = "SELECT COUNT(*), IsAdmin FROM Users WHERE Username=@Username AND Password=@Password";
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Password", password);
 
-                    int userCount = Convert.ToInt32(command.ExecuteScalar());
-
-                    if (userCount > 0)
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        // Open the MainWindow
-                        MainWindow mainWindow = new MainWindow(username);
-                        mainWindow.Show();
+                        if (reader.Read())
+                        {
+                            int userCount = Convert.ToInt32(reader[0]);
+                            bool isAdmin = Convert.ToBoolean(reader["IsAdmin"]);
 
-                        // Close the Authentication window
-                        authenticationWindow.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Invalid username or password.");
+                            if (userCount > 0)
+                            {
+                                if (isAdmin)
+                                {
+                                    // Open the AdminDashboard
+                                    AdminDashboard adminDashboard = new AdminDashboard();
+                                    adminDashboard.Show();
+                                }
+                                else
+                                {
+                                    // Open the MainWindow
+                                    MainWindow mainWindow = new MainWindow(username);
+                                    mainWindow.Show();
+                                }
+
+                                // Close the Authentication window
+                                authenticationWindow.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid username or password.");
+                            }
+                        }
                     }
                 }
             }
