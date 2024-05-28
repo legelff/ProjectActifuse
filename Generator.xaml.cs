@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,29 +147,68 @@ namespace ProjectActifuse
                 {
                     string apiUrl = "https://www.boredapi.com/api/activity";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
-                    response.EnsureSuccessStatusCode();
-                    string responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Parse the response JSON
-                    dynamic activityData = Newtonsoft.Json.JsonConvert.DeserializeObject(responseBody);
+                    if (response.StatusCode == HttpStatusCode.ServiceUnavailable) // Check for server code 503
+                    {
+                        // Fetch random activity from database
+                        string connectionString = "datasource=127.0.0.1; port=3306; username = root; password=; database=actifuse;";
+                        using (MySqlConnection connection = new MySqlConnection(connectionString))
+                        {
+                            string query = "SELECT * FROM activitys ORDER BY RAND() LIMIT 1";
+                            MySqlCommand command = new MySqlCommand(query, connection);
 
-                    HandleActivityData(activityData);
+                            await connection.OpenAsync();
+                            using (var reader = await command.ExecuteReaderAsync())
+                            {
+                                if (await reader.ReadAsync())
+                                {
+                                    // Extract activity details from database
+                                    string type = reader.GetString("Type");
+                                    string description = reader.GetString("Name");
+                                    int participants = reader.GetInt32("Participants");
+                                    string price = reader.GetDecimal("Price").ToString();
+                                    string accessibility = reader.GetDecimal("Accessibility").ToString();
+                                    string key = reader.GetInt32("ActivityId").ToString();
+                                    string link = reader.GetString("Link");
 
-                    // Extract required details
-                    string type = activityData.type;
-                    string description = activityData.activity;
-                    int participants = activityData.participants;
-                    string price = activityData.price;
-                    string accessibility = activityData.accessibility;
-                    string key = activityData.key;
-                    string link = activityData.link;
+                                    HandleActivityDataOffline(reader);
 
-                    // Instantiate the custom popup window
-                    ActivityPopup popup = new ActivityPopup();
-                    // Set activity details in the popup
-                    popup.SetActivityDetails(type, description, participants, price, accessibility, key, link);
-                    // Show the popup
-                    popup.ShowDialog();
+                                    // Instantiate the custom popup window
+                                    ActivityPopup popup = new ActivityPopup();
+                                    // Set activity details in the popup
+                                    popup.SetActivityDetails(type, description, participants, price, accessibility, key,  link);
+                                    // Show the popup
+                                    popup.ShowDialog();
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        response.EnsureSuccessStatusCode();
+                        string responseBody = await response.Content.ReadAsStringAsync();
+
+                        // Parse the response JSON
+                        dynamic activityData = Newtonsoft.Json.JsonConvert.DeserializeObject(responseBody);
+
+                        HandleActivityData(activityData);
+
+                        // Extract required details
+                        string type = activityData.type;
+                        string description = activityData.activity;
+                        int participants = activityData.participants;
+                        string price = activityData.price;
+                        string accessibility = activityData.accessibility;
+                        string key = activityData.key;
+                        string link = activityData.link;
+
+                        // Instantiate the custom popup window
+                        ActivityPopup popup = new ActivityPopup();
+                        // Set activity details in the popup
+                        popup.SetActivityDetails(type, description, participants, price, accessibility, key, link);
+                        // Show the popup
+                        popup.ShowDialog();
+                    }
                 }
             }
             catch (Exception ex)
@@ -419,6 +459,84 @@ namespace ProjectActifuse
             }
         }
 
+        // Call this method after retrieving activity data in OFFLINE CASE
+        private async void HandleActivityDataOffline(MySqlDataReader reader)
+        {
+            try
+            {
+                // Extract activity details from database
+                string type = reader.GetString("Type");
+                string description = reader.GetString("Name");
+                int participants = reader.GetInt32("Participants");
+                decimal price = reader.GetDecimal("Price");
+                decimal accessibility = reader.GetDecimal("Accessibility");
+                int activityId = reader.GetInt32("ActivityId");
+                string link = reader.GetString("Link");
+
+                // Insert the activity data into the database
+                await InsertActivity(activityId, type, description, participants, price, accessibility, link);
+
+                // Create Border dynamically
+                Border activityBorder = CreateActivityBorder(type, description);
+
+                // Check if the number of child elements exceeds 10
+                if (HistoryPreviewContainer.Children.Count >= 10)
+                {
+                    // Remove the last child (most bottom one)
+                    HistoryPreviewContainer.Children.RemoveAt(HistoryPreviewContainer.Children.Count - 1);
+                }
+
+                // Insert the dynamically created Border at the top of the StackPanel
+                HistoryPreviewContainer.Children.Insert(0, activityBorder);
+
+                // Connection string to connect to your MySQL database
+                string connectionString = "datasource=127.0.0.1; port=3306; username=root; password=; database=actifuse;";
+
+                // Define the query to retrieve UserId from users table based on Username
+                string getUserQuery = "SELECT UserId FROM users WHERE Username = @username";
+
+                // Create MySqlConnection object
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    // Open database connection
+                    await connection.OpenAsync();
+
+                    // Create MySqlCommand object with the query and connection
+                    using (MySqlCommand getUserCommand = new MySqlCommand(getUserQuery, connection))
+                    {
+                        // Add parameters to the query
+                        getUserCommand.Parameters.AddWithValue("@username", Username);
+
+                        // Execute the query and retrieve the UserId
+                        object result = await getUserCommand.ExecuteScalarAsync();
+
+                        // Check if the result is not null and convert it to an integer
+                        if (result != null && result != DBNull.Value)
+                        {
+                            int userId = Convert.ToInt32(result);
+
+                            // Check if the activity already exists in the user's history
+                            bool activityExists = await CheckActivityExistsInHistory(userId, activityId);
+
+                            // If the activity doesn't exist in the history, insert it
+                            if (!activityExists)
+                            {
+                                await InsertHistory(userId, activityId);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
         // Method to check if the activity already exists in the user's history
         private async Task<bool> CheckActivityExistsInHistory(int userId, int activityId)
         {
@@ -475,6 +593,7 @@ namespace ProjectActifuse
 
             // Create a TextBlock for the Type
             TextBlock typeTextBlock = new TextBlock();
+            type = char.ToUpper(type[0]) + type.Substring(1);
             typeTextBlock.Text = type;
             typeTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
             typeTextBlock.VerticalAlignment = VerticalAlignment.Center;
