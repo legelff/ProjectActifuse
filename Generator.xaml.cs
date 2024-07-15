@@ -145,7 +145,7 @@ namespace ProjectActifuse
                 // Make API request to boredapi
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://www.boredapi.com/api/activity";
+                    string apiUrl = "https://bored.api.lewagon.com/api/activity";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.StatusCode == HttpStatusCode.ServiceUnavailable) // Check for server code 503
@@ -220,7 +220,7 @@ namespace ProjectActifuse
         private async void FilterGen_Click(object sender, RoutedEventArgs e)
         {
             // Initialize the base URL
-            string baseUrl = "https://www.boredapi.com/api/activity";
+            string baseUrl = "https://bored.api.lewagon.com/api/activity";
 
             // Initialize an empty list to store query parameters
             List<string> queryParams = new List<string>();
