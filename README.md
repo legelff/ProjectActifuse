@@ -4,7 +4,7 @@ The activities are stored in the history where the user can favorite, mark as co
 Keeping good UI in mind, Actifuse has been built to provide a pleasant and seamless experience by using boredapi (currently offline) to generate activities.
 
 ## Version
-Exam version released
+Pre-release out now!
 
 ## Sneak peeks of the application...
 ![image](https://github.com/legelff/ProjectActifuse/assets/147063982/ca312529-5e72-4e77-8a71-3f1f5ab2c146)
